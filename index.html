@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amulspray Rose Nurture — The Taste of Real Roses</title>
+<meta name="description" content="Experience a cinematic scroll journey through Amulspray Rose Nurture — premium dairy nutrition with the cooling essence of real roses.">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+tailwind.config = {
+    theme: { extend: {
+        colors: {
+            "surface":"#fff8f8","surface-low":"#fff0f4","surface-container":"#fce9ef",
+            "surface-high":"#f6e3ea","surface-highest":"#f0dee4","surface-dim":"#e8d5dc",
+            "on-surface":"#23191d","on-surface-muted":"#574147",
+            "outline":"#8b7077","outline-dim":"#debfc6",
+            "primary":"#ae1d5d","primary-dark":"#8a0045",
+            "primary-container":"#ffd9e1","tertiary-container":"#ffd8e7",
+        },
+        spacing: {
+            "container-max":"1200px","margin-mobile":"16px","margin-desktop":"64px",
+            "gutter":"24px","section-sm":"80px","section-lg":"128px",
+        },
+        fontFamily: { display:["Plus Jakarta Sans"], body:["Manrope"] },
+        maxWidth: { "container-max":"1200px" },
+    }}
+}
+</script>
+
+<!-- Google Fonts + Material Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Manrope:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ── CUSTOM CURSOR ── -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── SCROLL PROGRESS ── -->
+<div id="scroll-progress-bar"></div>
+
+<!-- ══════════════════════════════════════════════════
+     PRELOADER
+════════════════════════════════════════════════════ -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <div>
+      <div class="preloader-logo">Amulspray</div>
+      <div class="preloader-sub">Rose Nurture · Est. 1946</div>
+    </div>
+
+    <div class="ring-wrap">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="45"/>
+        <circle id="ring-fg" class="ring-fg" cx="50" cy="50" r="45"/>
+      </svg>
+      <div id="pct-text">0%</div>
+    </div>
+
+    <p class="preloader-hint">Loading cinematic experience…</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     STICKY NAV
+════════════════════════════════════════════════════ -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">Amulspray Rose</a>
+  <ul class="nav-links">
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#science">Science</a></li>
+    <li><a href="#nutrition">Nutrition</a></li>
+    <li><a href="#recipes">Recipes</a></li>
+  </ul>
+  <button class="nav-cta squish">Buy Now</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     SCROLL ANIMATION ZONE  (500vh sticky canvas)
+════════════════════════════════════════════════════ -->
+<div class="scroll-experience-wrapper">
+
+  <!-- Sticky canvas — frames render here -->
+  <div class="canvas-container">
+    <canvas id="scroll-canvas"></canvas>
+  </div>
+
+  <!-- Story panels layer (fixed, controlled by JS) -->
+  <div class="story-panels-layer">
+
+    <!-- Panel 0 · Frames 1–55 -->
+    <section class="story-panel panel-left is-active" id="panel-0">
+      <div class="glass-card">
+        <span class="panel-badge">✦ Enhanced Nurture Formula</span>
+        <h1 class="panel-title">
+          The Refreshing<br>
+          Taste of <span class="accent">Real&nbsp;Roses.</span>
+        </h1>
+        <p class="panel-body">
+          Amulspray Rose Nurture blends decades of nutritional expertise with the
+          cooling essence of premium rose extracts — fueling your family's vitality
+          with a modern floral twist.
+        </p>
+        <div class="scroll-hint">
+          <div class="mouse-icon"><div class="mouse-wheel"></div></div>
+          <span>Scroll to experience</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel 1 · Frames 65–120 -->
+    <section class="story-panel panel-right" id="panel-1">
+      <div class="glass-card">
+        <span class="panel-badge">🌿 Pure &amp; Organic</span>
+        <h2 class="panel-title">
+          Nourishing<br>
+          <span class="accent">Every Home</span>
+        </h2>
+        <p class="panel-body">
+          Crafted from the freshest milk collected from millions of cooperative
+          dairy farmers daily. Amul brings the goodness of rural India straight
+          to your kitchen table — pure as nature intended.
+        </p>
+      </div>
+    </section>
+
+    <!-- Panel 2 · Frames 130–185 -->
+    <section class="story-panel panel-left" id="panel-2">
+      <div class="glass-card">
+        <span class="panel-badge">🧬 Golden Standard</span>
+        <h2 class="panel-title">
+          Buttery<br>
+          <span class="accent">Perfection</span>
+        </h2>
+        <p class="panel-body">
+          15g high-bioavailable protein. 24 vital nutrients. 0% added sugar.
+          Engineered for the modern, energetic lifestyle — without the crash.
+        </p>
+      </div>
+    </section>
+
+    <!-- Panel 3 · Frames 195–234 -->
+    <section class="story-panel panel-center" id="panel-3">
+      <div class="glass-card">
+        <span class="panel-badge">🌹 The Legacy</span>
+        <h2 class="panel-title">An Eternal<br><span class="accent">Bond</span></h2>
+        <p class="panel-body">
+          From the iconic Amul Girl's witty taglines to the pure milk that fuels
+          our mornings — Amul is more than a brand. It is the heartbeat of India.
+        </p>
+        <button class="panel-cta squish" id="explore-btn">
+          Discover Our Story
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </button>
+      </div>
+    </section>
+
+  </div><!-- /story-panels-layer -->
+</div><!-- /scroll-experience-wrapper -->
+
+<!-- Frame HUD -->
+<div id="frame-hud">
+  <span class="lbl">FRAME</span>
+  <span class="num" id="hud-num">001</span>
+  <span class="sep">/</span>
+  <span class="tot">234</span>
+</div>
+
+<!-- Sound toggle -->
+<button id="sound-btn" class="muted" title="Toggle ambient sound">
+  <svg class="icon-on" viewBox="0 0 24 24" width="20" height="20">
+    <path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/>
+  </svg>
+  <svg class="icon-off" viewBox="0 0 24 24" width="20" height="20">
+    <path fill="currentColor" d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.43 14,18.68V20.74C15.38,20.44 16.63,19.78 17.67,18.9L20.73,21.96L22,20.69L4.27,3Z"/>
+  </svg>
+</button>
+
+<!-- ══════════════════════════════════════════════════
+     PRODUCT PAGE  (appears after animation zone)
+════════════════════════════════════════════════════ -->
+<div id="product-page">
+
+  <!-- ─── HERO ─── -->
+  <section class="relative pt-12 pb-[80px] md:py-[128px] overflow-hidden bg-surface">
+    <div class="absolute w-[500px] h-[500px] rounded-full bg-primary-container -top-40 -left-24 opacity-10 blur-[80px]"></div>
+    <div class="absolute w-[400px] h-[400px] rounded-full bg-tertiary-container -bottom-20 -right-20 opacity-10 blur-[80px]"></div>
+
+    <div class="max-w-container-max mx-auto px-[16px] md:px-[64px] grid md:grid-cols-2 gap-16 items-center">
+      <!-- Copy -->
+      <div class="space-y-8 z-10 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-container text-primary-dark rounded-full">
+          <span class="material-symbols-outlined text-[15px]" style="font-variation-settings:'FILL' 1">auto_awesome</span>
+          <span class="font-body text-[10px] font-bold uppercase tracking-[0.15em]">Enhanced Nurture Formula</span>
+        </div>
+        <h1 class="font-display text-[44px] md:text-[64px] leading-[1.06] font-extrabold text-on-surface tracking-tight">
+          The Refreshing<br>Taste of <em class="text-primary not-italic">Real&nbsp;Roses.</em>
+        </h1>
+        <p class="font-body text-[18px] text-on-surface-muted leading-relaxed max-w-[500px]">
+          Amulspray Rose Nurture combines decades of nutritional expertise with the
+          delicate, cooling essence of premium rose extracts. Fueling your family's
+          vitality with a modern floral twist.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-2">
+          <button class="bg-primary text-white px-10 py-4 rounded-full font-body font-bold text-sm flex items-center gap-2 squish shadow-[0_12px_28px_rgba(174,29,93,0.3)]">
+            Shop the Collection
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+          <button class="bg-white border border-outline-dim text-on-surface-muted px-10 py-4 rounded-full font-body font-semibold text-sm squish hover:bg-surface-low transition-colors">
+            View Benefits
+          </button>
+        </div>
+      </div>
+
+      <!-- Product image -->
+      <div class="relative flex justify-center items-center reveal reveal-d1">
+        <div class="relative w-full aspect-square max-w-[520px] flex items-center justify-content-center">
+          <div class="absolute inset-0 bg-primary-container/20 rounded-[40px] rotate-6"></div>
+          <div class="absolute inset-4 bg-white/40 backdrop-blur-sm rounded-[28px] -rotate-3 border border-white/50"></div>
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwyeWTVwy7-qs2w_Ty4NhtSnCUgl9YDwUkmroc-hlStW9RTEDi4nfnaAJMODvwleDmay_aAFL2gpXFdcgaZ1Fii5eJu97smtkT667uIvYAbtkwAmj_L02gFAHa8YJKcsG1ZTcI4kpztXCOUKm1WyhUOd4oEvgI42sCLyFa25H-rx3dOukbb4NYIS0VpRNTa5FtYq_qzjxoOQmw0jtu-1G9ne86L14hpKPewYcIaPY-_bjTf13R25nZFg8cG9pS6G-qrtx4xdmE1yw"
+            alt="Amulspray Rose Nurture Bottle"
+            class="relative w-[88%] h-auto object-contain z-10 drop-shadow-[0_40px_40px_rgba(174,29,93,0.28)]"
+            style="animation: float 6s ease-in-out infinite;"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROOF BAR ─── -->
+  <section class="py-14 bg-white border-y border-outline-dim/20" id="benefits">
+    <div class="max-w-container-max mx-auto px-[16px] md:px-[64px]">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="flex flex-col items-center text-center gap-3 reveal">
+          <div class="w-12 h-12 rounded-full bg-primary-container/30 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1">eco</span>
+          </div>
+          <span class="font-body text-sm font-bold text-on-surface">Natural Rose Extract</span>
+        </div>
+        <div class="flex flex-col items-center text-center gap-3 reveal reveal-d1">
+          <div class="w-12 h-12 rounded-full bg-primary-container/30 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1">health_and_safety</span>
+          </div>
+          <span class="font-body text-sm font-bold text-on-surface">Calcium &amp; Vitamin D</span>
+        </div>
+        <div class="flex flex-col items-center text-center gap-3 reveal reveal-d2">
+          <div class="w-12 h-12 rounded-full bg-primary-container/30 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1">verified</span>
+          </div>
+          <span class="font-body text-sm font-bold text-on-surface">No Preservatives</span>
+        </div>
+        <div class="flex flex-col items-center text-center gap-3 reveal reveal-d3">
+          <div class="w-12 h-12 rounded-full bg-primary-container/30 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1">family_restroom</span>
+          </div>
+          <span class="font-body text-sm font-bold text-on-surface">Complete Family Care</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BENTO SCIENCE ─── -->
+  <section class="py-[80px] md:py-[128px] bg-surface-low/30" id="science">
+    <div class="max-w-container-max mx-auto px-[16px] md:px-[64px]">
+      <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-16 reveal">
+        <div class="max-w-xl">
+          <h2 class="font-display text-[28px] md:text-[32px] font-bold text-on-surface leading-tight">Precision Engineered Vitality</h2>
+          <p class="font-body text-[16px] text-on-surface-muted mt-3 leading-relaxed">
+            Amulspray Rose Nurture isn't just a drink — it's a scientifically balanced
+            nutritional supplement crafted for the modern, energetic lifestyle.
+          </p>
+        </div>
+        <div class="hidden md:block h-px flex-1 bg-outline-dim/40 mb-2 ml-12"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Main card -->
+        <div class="md:col-span-8 bg-white rounded-2xl p-8 md:p-12 border border-outline-dim/20 shadow-[0_8px_32px_rgba(174,29,93,0.06)] flex flex-col md:flex-row gap-10 items-center overflow-hidden group reveal">
+          <div class="flex-1 space-y-5">
+            <div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(174,29,93,0.3)]">
+              <span class="material-symbols-outlined text-white text-3xl">nutrition</span>
+            </div>
+            <h3 class="font-display text-[22px] font-bold text-on-surface">Modern Nutritional Science</h3>
+            <p class="font-body text-[16px] text-on-surface-muted leading-relaxed">
+              Every serving is packed with essential micronutrients designed to maintain
+              high energy levels without the traditional sugar crash.
+            </p>
+            <ul class="space-y-2.5 pt-1">
+              <li class="flex items-center gap-3 text-on-surface-muted text-sm font-semibold">
+                <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                High Bioavailable Protein
+              </li>
+              <li class="flex items-center gap-3 text-on-surface-muted text-sm font-semibold">
+                <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                Essential B-Complex Vitamins
+              </li>
+              <li class="flex items-center gap-3 text-on-surface-muted text-sm font-semibold">
+                <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                Natural Rose Antioxidants
+              </li>
+            </ul>
+          </div>
+          <div class="flex-1 w-full">
+            <div class="aspect-square bg-surface-container rounded-xl overflow-hidden shadow-inner">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAR2qN63DzQsaJ7SoKqCkY-QLtkDNjIDwYQZXiyQsPkXtKxNm7C3HRU7-DWAKAYzSXg1_SnZJtRiEl5HyQBHQ20YGbxJvEzAL6eWn2G-2DO6-kXxuJxjY80aJv8UUMm4qFFnGdcvuhwe8JtwQ1qctvjuQArW4Yjj501rJy4_EiBYRs-R8KfMzREdC3A0azrquBcWfYMErURIEy4IhMLCYZv9KSUi-AeaP4d5wWfATxHwdLDOTK5TfgQo9YZphuW1UeK8zA9nMA20Q"
+                alt="Ingredients" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            </div>
+          </div>
+        </div>
+
+        <!-- Side cards -->
+        <div class="md:col-span-4 flex flex-col gap-6">
+          <div class="flex-1 bg-tertiary-container/30 border border-tertiary-container rounded-2xl p-8 shadow-[0_4px_16px_rgba(174,29,93,0.05)] reveal reveal-d1">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings:'FILL' 1">eco</span>
+              <h3 class="font-display text-[20px] font-bold text-on-surface">Eco-Refined</h3>
+            </div>
+            <p class="font-body text-[15px] text-on-surface-muted leading-relaxed">
+              Sustainable sourcing ensures every petal and drop supports local farmers and the planet.
+            </p>
+          </div>
+
+          <div class="flex-1 bg-surface-highest rounded-2xl p-8 border border-outline-dim/30 shadow-[0_4px_16px_rgba(174,29,93,0.05)] group reveal reveal-d2">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings:'FILL' 1">favorite</span>
+              <h3 class="font-display text-[20px] font-bold text-on-surface">Family Trusted</h3>
+            </div>
+            <p class="font-body text-[15px] text-on-surface-muted leading-relaxed">
+              Designed for all ages — from active toddlers to busy professionals.
+            </p>
+            <div class="mt-5 h-1 w-full bg-outline-dim/20 rounded-full overflow-hidden">
+              <div class="h-full bg-primary w-0 group-hover:w-full transition-all duration-1000 ease-out rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS / ENERGY CALLOUT ─── -->
+  <section class="py-[128px] bg-primary relative overflow-hidden text-white" id="nutrition">
+    <div class="absolute top-0 right-0 w-1/3 h-full bg-white/5 -skew-x-12 translate-x-1/2 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white/5 -translate-x-1/2 translate-y-1/2 pointer-events-none blur-3xl"></div>
+    <div class="max-w-container-max mx-auto px-[16px] md:px-[64px] relative z-10">
+      <div class="max-w-3xl">
+        <h2 class="font-display text-[40px] md:text-[56px] font-extrabold leading-tight mb-12 reveal">
+          Fuel Your Greatness<br>
+          with <span class="underline decoration-white/40 decoration-4 underline-offset-8">Rose Nurture</span>
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-14">
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/15 reveal">
+            <div class="text-[42px] font-extrabold leading-none mb-1">15g</div>
+            <div class="text-white/65 text-xs font-bold uppercase tracking-widest mt-1">Protein / Pack</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/15 reveal reveal-d1">
+            <div class="text-[42px] font-extrabold leading-none mb-1">0%</div>
+            <div class="text-white/65 text-xs font-bold uppercase tracking-widest mt-1">Added Sugar</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/15 reveal reveal-d2">
+            <div class="text-[42px] font-extrabold leading-none mb-1">24</div>
+            <div class="text-white/65 text-xs font-bold uppercase tracking-widest mt-1">Vital Nutrients</div>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 reveal">
+          <button class="bg-white text-primary px-12 py-4 rounded-full font-body font-bold text-sm squish shadow-[0_16px_40px_rgba(0,0,0,0.2)] flex items-center gap-2">
+            Grab an Energy Pack
+            <span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+          </button>
+          <p class="text-white/50 text-xs italic max-w-xs">* Based on recommended daily allowance for adults.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NOTICE ─── -->
+  <section class="py-10 bg-surface-low/50">
+    <div class="max-w-container-max mx-auto px-[16px] md:px-[64px]">
+      <div class="bg-white border border-primary/15 rounded-2xl p-7 flex flex-col md:flex-row items-center gap-5 text-center md:text-left shadow-[0_4px_20px_rgba(174,29,93,0.05)]">
+        <span class="material-symbols-outlined text-primary text-4xl flex-shrink-0">info</span>
+        <div>
+          <h4 class="font-body text-xs font-bold text-primary uppercase tracking-widest mb-1">Important Notice</h4>
+          <p class="font-body text-[15px] text-on-surface-muted font-semibold leading-relaxed">
+            Mother's milk is best for your baby. Amulspray Rose Nurture is designed as a
+            nutritional supplement for the entire family.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="bg-surface-dim pt-[80px] pb-8 border-t border-outline-dim/30">
+    <div class="max-w-container-max mx-auto px-[16px] md:px-[64px]">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+        <div class="md:col-span-5 space-y-6">
+          <span class="font-display text-[22px] font-extrabold text-primary block">Amulspray Rose</span>
+          <p class="font-body text-[15px] text-on-surface-muted max-w-sm leading-relaxed">
+            Elevating family health through energetic nutrition and modern aesthetics.
+            Since 1955, Amulspray has been a cornerstone of trust in nutrition.
+          </p>
+          <div class="flex gap-3">
+            <a class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+              <span class="material-symbols-outlined text-[18px]">language</span>
+            </a>
+            <a class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+              <span class="material-symbols-outlined text-[18px]">share</span>
+            </a>
+            <a class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" href="#">
+              <span class="material-symbols-outlined text-[18px]">alternate_email</span>
+            </a>
+          </div>
+        </div>
+        <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div class="space-y-4">
+            <h5 class="font-body text-xs font-bold text-on-surface uppercase tracking-widest">Product</h5>
+            <ul class="space-y-3">
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Benefits</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#" id="recipes">Recipes</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Shop</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Subscription</a></li>
+            </ul>
+          </div>
+          <div class="space-y-4">
+            <h5 class="font-body text-xs font-bold text-on-surface uppercase tracking-widest">Company</h5>
+            <ul class="space-y-3">
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Our Story</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Sustainability</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Careers</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Press</a></li>
+            </ul>
+          </div>
+          <div class="space-y-4 col-span-2 sm:col-span-1">
+            <h5 class="font-body text-xs font-bold text-on-surface uppercase tracking-widest">Support</h5>
+            <ul class="space-y-3">
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Contact Us</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Wholesale</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+              <li><a class="font-body text-[15px] text-on-surface-muted hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-outline-dim/30 flex flex-col md:flex-row justify-between items-center gap-3">
+        <p class="font-body text-xs text-on-surface-muted/60">© 2024 Amulspray Rose Nurture. All rights reserved.</p>
+        <p class="font-body text-xs text-on-surface-muted/40">Made with care for every family.</p>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /product-page -->
+
+<!-- Float keyframe for hero product image -->
+<style>
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-18px) rotate(1deg); }
+}
+</style>
+
+<script src="app.js"></script>
+</body>
+</html>
